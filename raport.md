@@ -34,5 +34,80 @@ Implementing classifications, we did 4:
 + KNClassifier
 + Random Forest Classifier
 
+Model #1 Dummy Classifier
 The first model classification we generate is a dummy classifier. We compare our models' success to each other but also to this baseline model.
 
+![](2022-06-26-15-04-11.png)
+
+Our dummy classifier correctly predicted 89%. And we clearly have a class imbalance problem. We try with SMOTE the training data and see if training a model with this method would improve our results.
+
+![](2022-06-26-15-05-03.png)
+
+![](2022-06-26-15-07-06.png)
+
+
+
+Model #2 Random Forest Classifier
+
+![](2022-06-26-15-09-21.png)
+
+For its model we can use also SMOTE too see if results will be better.
+
+![](2022-06-26-15-10-52.png)
+
+Our model is performing too perfectly since it is overfitting to the training set. We try to use a grid search to optimize for the f1 score.
+
+Hyperparameter Tuning
+
+The best estimator for its model we got as there.
+
+![](2022-06-26-15-13-36.png)
+
+![](2022-06-26-15-15-04.png)
+
+
+
+Model #3 LogisticRegression
+
+![](2022-06-26-15-17-05.png)
+
+SMOTE
+
+![](2022-06-26-15-17-35.png)
+
+Hyperparameter Tuning
+
+![](2022-06-26-15-18-07.png)
+
+![](2022-06-26-15-18-34.png)
+
+
+
+Model #4 KNClassifier
+
+For that model we will be using a different value for K. While the camparison we will see which K gives the best results.
+
+for n_neighbors=1
+
+![](2022-06-26-15-19-35.png)
+
+
+for n_neighbors=3
+
+![](2022-06-26-15-20-04.png)
+
+
+for n_neighbors=5
+
+![](2022-06-26-15-20-30.png)
+
+
+Analyzing scores we can see that for n_neighbors=5 is the best option.
+
+
+RESULTS
+
+
+![](2022-06-26-15-20-51.png)
+
+Out of the three models, the Random Forest model is the best one in predicting classes for labels. 
