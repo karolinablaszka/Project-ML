@@ -17,9 +17,9 @@ def main():
     y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
     y = y.values.ravel()
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
 
-    scaler = StandardScaler()
+    scaler = StandardScaler(with_std=False)
     X_train = scaler.fit_transform(X_train, y_train)
     X_test = scaler.transform(X_test)
 
@@ -32,7 +32,7 @@ def main():
             'model': svm.SVC(gamma='auto'),
             'params' : {
                 'C': [1,10,20],
-                'kernel': ['rbf','linear']
+                'kernel': ['rbf','linear', 'poly']
             }  
         },
         'random_forest': {
