@@ -14,21 +14,25 @@ def main():
     scaler = StandardScaler()
     df_std = scaler.fit_transform(df)
 
-    tsne = TSNE()
+    tsne = TSNE(n_components=2)
     pca = PCA(n_components=0.99)
+
     xpca = pca.fit_transform(df_std)
-    pca_tsne_results = tsne.fit_transform(xpca)
-    print(pca_tsne_results)
+    pca_results = tsne.fit_transform(xpca)
+    
+    pca_tsne_results = tsne.fit_transform(pca_results)
+    
 
     plt.figure(figsize=(10, 7))
     sns.scatterplot(
         data=pca_tsne_results,
         x=pca_tsne_results[:,0], 
         y=pca_tsne_results[:,1],
-        hue=pca_tsne_results[:,1],
+        hue=y[0],
         palette=sns.color_palette("Paired", as_cmap=True),
         alpha=0.5
     )
+    plt.show()
 
 if __name__ == "__main__":
     main()
