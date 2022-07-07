@@ -8,8 +8,8 @@ import pandas as pd
 
 
 def main():
-    df = pd.read_csv(r'src\data\data_ML\train_data.csv', header=None)
-    y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
+    df = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_data.csv', header=None)
+    y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
 
     scaler = StandardScaler()
     df_std = scaler.fit_transform(df)

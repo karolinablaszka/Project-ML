@@ -7,8 +7,8 @@ import pandas as pd
 
 def main():
 
-    X = pd.read_csv(r'src\data\data_ML\train_data.csv', header=None)
-    y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
+    X = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_data.csv', header=None)
+    y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
 
     pca = PCA(n_components=2)
     # fit on all numerical features and reduce dimensionality to two dimensions

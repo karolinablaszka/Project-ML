@@ -6,10 +6,10 @@ import numpy as np
 
 def main():
 
-    X = pd.read_csv(r'src\data\data_ML\train_data.csv', header=None)
-    y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
+    X = joblib.load(r'C:\Users\karol\Project-ML\src\features\train_data_2.pkl')
+    y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
     y = y.values.ravel()
-    test_data = pd.read_csv(r'src\data\data_ML\test_data.csv', header=None)
+    test_data = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\test_data.csv', header=None)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
 
