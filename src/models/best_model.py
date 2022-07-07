@@ -12,8 +12,8 @@ warnings.filterwarnings("ignore")
 
 def main():
 
-    X = joblib.load('train_data_2.pkl')
-    y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
+    X = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_data.csv', header=None)
+    y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
 
