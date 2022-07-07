@@ -7,8 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm
-
+from sklearn.svm import SVC
+from sympy import prime
 warnings.filterwarnings("ignore")
 
 def main():
@@ -28,32 +28,34 @@ def main():
 
 
     model_params = {
-        'svm': {
-            'model': svm.SVC(gamma='auto'),
+        'SVC': {
+            'model': SVC(gamma='auto'),
             'params' : {
                 'C': [1,10,20],
                 'degree': [1,2,3],
-                'kernel': ['rbf','linear', 'poly' ]
-            }  
-        },
-        'random_forest': {
+                'kernel': ['linear', 'poly' ]
+            }}  
+        ,
+        'Random': {
             'model': RandomForestClassifier(),
             'params' : {
-                'n_estimators': [1,5,10]
+                'n_estimators': [1,5,10],
+                'max_features': [1, 2, 3]
                         }
         },
-        'logistic_regression' : {
+        'Log': {
             'model': LogisticRegression(solver='liblinear', multi_class='auto'),
             'params': {
-                'C': [1,5,10]
+                'C': [1,5,10],
+                'penalty': ['l1', 'l2']
             }
         },
-        'kn_classifier' : {
+        'KNClassifier':{
             'model': KNeighborsClassifier(),
             'params': {
                 'n_neighbors': [1,3,5]
-            }
-        }
+            }}
+        
     }
 
 
@@ -62,14 +64,14 @@ def main():
     scores = []
 
     for model_name, mp in model_params.items():
-        clf = GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False, n_jobs=-1)
+        clf = GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False, n_jobs=-2)
         clf.fit(X, y)
         scores.append({
-            'model': model_name,
-            'best_score': clf.best_score_,
-            'best_params': clf.best_params_
-        })
-
+             'model': model_name,
+             'best_score': clf.best_score_,
+             'best_params': clf.best_params_,
+             })
+        print(scores)
 
     df = pd.DataFrame(scores,columns=['model','best_score','best_params'])
     print(df)
