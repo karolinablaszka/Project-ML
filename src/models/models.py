@@ -33,7 +33,7 @@ def main():
             'params' : {
                 'C': [1,10,20],
                 'degree': [1,2,3],
-                'kernel': ['linear', 'poly' ]
+                'kernel': ['linear', 'poly', 'rbf'  ]
             }}  
         ,
         'Random': {

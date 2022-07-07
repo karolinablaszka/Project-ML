@@ -6,7 +6,7 @@ import numpy as np
 
 def main():
 
-    X = joblib.load(r'C:\Users\karol\Project-ML\src\features\train_data_2.pkl')
+    X = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_data.csv', header=None)
     y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
     y = y.values.ravel()
     test_data = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\test_data.csv', header=None)
