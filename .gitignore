@@ -33,6 +33,12 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
+#pkl
+train_data_2.pkl
+
+#data
+src/data
+
 # Unit test / coverage reports
 htmlcov/
 .tox/

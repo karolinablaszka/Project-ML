@@ -5,6 +5,6 @@ setup(
     packages=find_packages(),
     version='0.1.0',
     description='A project for ML lessons at university',
-    author='Karolina Blaszka & Paula Koralewska',
+    author='Karolina Blaszka',
     license='',
 )
