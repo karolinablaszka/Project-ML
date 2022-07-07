@@ -7,8 +7,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm
-
+from sklearn.svm import SVC
+from sympy import prime
 warnings.filterwarnings("ignore")
 
 def main():
@@ -17,9 +17,9 @@ def main():
     y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
     y = y.values.ravel()
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
 
-    scaler = StandardScaler()
+    scaler = StandardScaler(with_std=False)
     X_train = scaler.fit_transform(X_train, y_train)
     X_test = scaler.transform(X_test)
 
@@ -28,31 +28,34 @@ def main():
 
 
     model_params = {
-        'svm': {
-            'model': svm.SVC(gamma='auto'),
+        'SVC': {
+            'model': SVC(gamma='auto'),
             'params' : {
                 'C': [1,10,20],
-                'kernel': ['rbf','linear']
-            }  
-        },
-        'random_forest': {
+                'degree': [1,2,3],
+                'kernel': ['linear', 'poly' ]
+            }}  
+        ,
+        'Random': {
             'model': RandomForestClassifier(),
             'params' : {
-                'n_estimators': [1,5,10]
+                'n_estimators': [1,5,10],
+                'max_features': [1, 2, 3]
                         }
         },
-        'logistic_regression' : {
+        'Log': {
             'model': LogisticRegression(solver='liblinear', multi_class='auto'),
             'params': {
-                'C': [1,5,10]
+                'C': [1,5,10],
+                'penalty': ['l1', 'l2']
             }
         },
-        'kn_classifier' : {
+        'KNClassifier':{
             'model': KNeighborsClassifier(),
             'params': {
                 'n_neighbors': [1,3,5]
-            }
-        }
+            }}
+        
     }
 
 
@@ -61,14 +64,14 @@ def main():
     scores = []
 
     for model_name, mp in model_params.items():
-        clf = GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False, n_jobs=-1)
+        clf = GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False, n_jobs=-2)
         clf.fit(X, y)
         scores.append({
-            'model': model_name,
-            'best_score': clf.best_score_,
-            'best_params': clf.best_params_
-        })
-
+             'model': model_name,
+             'best_score': clf.best_score_,
+             'best_params': clf.best_params_,
+             })
+        print(scores)
 
     df = pd.DataFrame(scores,columns=['model','best_score','best_params'])
     print(df)
