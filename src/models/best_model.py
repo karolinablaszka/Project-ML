@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 
 def main():
 
-    X = joblib.load(r'C:\Users\karol\Project-ML\src\features\train_data_2.pkl')
+    X = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_data.csv', header=None)
     y = pd.read_csv(r'C:\Users\karol\Project-ML\src\data\data_ML\train_labels.csv', header=None)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
@@ -46,8 +46,7 @@ def main():
     X_train_sm, y_train_sm= sm.fit_resample(X_train, y_train)
     
 
-    best_clf_sm= SVC(C=1, degree=2, gamma='auto',
-        kernel='poly')
+    best_clf_sm= SVC(C=1, degree=2, gamma='auto', kernel='poly')
           
     classification(best_clf_sm, X_train_sm, y_train_sm, X_test, y_test)
     
