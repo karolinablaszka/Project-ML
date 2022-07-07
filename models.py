@@ -32,7 +32,8 @@ def main():
             'model': svm.SVC(gamma='auto'),
             'params' : {
                 'C': [1,10,20],
-                'kernel': ['rbf','linear', 'poly']
+                'degree': [1,2,3],
+                'kernel': ['rbf','linear', 'poly' ]
             }  
         },
         'random_forest': {

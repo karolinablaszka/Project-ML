@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
 import joblib 
 import warnings
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+
 warnings.filterwarnings("ignore")
 
 def main():
@@ -14,41 +18,45 @@ def main():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
 
-    dummy_clf = DummyClassifier(strategy="most_frequent", random_state=42)
-    
+    best_clf= SVC(gamma='auto', C=1, kernel='rbf')
+
     def classification(clf, X_train, y_train, X_test, y_test):
         clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
-            
+
         #Classification report
         print("CLASSIFICATION REPORT")
         print("------------------------------------------")
         print(classification_report(y_test, y_pred))
-        
-        
+
         #Plotting the normalized confusion matrix
         cm = confusion_matrix(y_test, y_pred)
+        print(cm)
         matrix = ConfusionMatrixDisplay(confusion_matrix = cm, display_labels = clf.classes_)
         matrix.plot()
         plt.show()
-        
 
-    classification(dummy_clf, X_train, y_train, X_test, y_test)
-
+    #classification(best_clf, X_train, y_train, X_test, y_test) 
     y_train.value_counts(normalize=True)
-    # We clearly have a class imbalance problem
-    # To address this we can SMOTE the training data and see 
-    # if training a model with this method would improve our results.
+
+    scaler = StandardScaler(with_std=False)
+    X_train = scaler.fit_transform(X_train, y_train)
+    X_test = scaler.transform(X_test)
+    
 
     from imblearn.over_sampling import SMOTE
     sm = SMOTE()
-    X_train_sm, y_train_sm = sm.fit_resample(X_train, y_train)
-    y_train_sm.value_counts(normalize=True)
+    X_train_sm, y_train_sm= sm.fit_resample(X_train, y_train)
+    #print(y_train_sm.value_counts(normalize=True))
 
-    clf_dummy_sm = DummyClassifier()
-    clf_dummy_sm.fit(X_train, y_train)
-
-    classification(clf_dummy_sm, X_train_sm, y_train_sm, X_test, y_test)
+    best_clf_sm= SVC(C=1, degree=2, gamma='auto',
+        kernel='poly')
+          
+    #best_clf.fit(X_train, y_train)
+    #y_pred = best_clf.predict(X_test)
+    classification(best_clf_sm, X_train_sm, y_train_sm, X_test, y_test)
+    
+   
 
 if __name__ == '__main__':
     main()
