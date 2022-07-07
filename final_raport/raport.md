@@ -38,5 +38,6 @@ The best hyperparameters are for SVC:
 
 ![](2022-07-07-17-18-16.png)
 
+![](2022-07-07-17-37-57.png)
 
 Out of the four models, the SVC model is the best one in predicting classes for labels. 
