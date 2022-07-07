@@ -1,5 +1,4 @@
 import pandas as pd
-from sklearn.dummy import DummyClassifier
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
@@ -17,8 +16,6 @@ def main():
     y = pd.read_csv(r'src\data\data_ML\train_labels.csv', header=None)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
-
-    best_clf= SVC(gamma='auto', C=1, kernel='rbf')
 
     def classification(clf, X_train, y_train, X_test, y_test):
         clf.fit(X_train, y_train)
@@ -47,13 +44,11 @@ def main():
     from imblearn.over_sampling import SMOTE
     sm = SMOTE()
     X_train_sm, y_train_sm= sm.fit_resample(X_train, y_train)
-    #print(y_train_sm.value_counts(normalize=True))
+    
 
     best_clf_sm= SVC(C=1, degree=2, gamma='auto',
         kernel='poly')
           
-    #best_clf.fit(X_train, y_train)
-    #y_pred = best_clf.predict(X_test)
     classification(best_clf_sm, X_train_sm, y_train_sm, X_test, y_test)
     
    
